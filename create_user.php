@@ -1,8 +1,8 @@
 <?php
-include_once "bd.php";
+
 
 session_start();
-
+/*
 $email=$_POST['email'];
 function add($db,$email){
   $sql = "SELECT `email` FROM `userss` WHERE `email` = :email";
@@ -52,7 +52,7 @@ function addd($email){
 }
 }
 addd($db,$email);
-
+*/
  ?>
 
 <!DOCTYPE html>

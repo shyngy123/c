@@ -3,7 +3,7 @@ session_start();
 
 require_once "bd.php";
 
-function edit($db){
+/*function edit($db){
 
 	$edit_name = $_POST['name'];
 	$edit_last_name = $_POST['workplace'];
@@ -20,7 +20,7 @@ function edit($db){
 }
 edit($db);
 
-
+*/
 
 
  ?>
@@ -89,7 +89,7 @@ edit($db);
                                 <!-- tel -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Номер телефона</label>
-                                    <input type="text" name="num"   id="simpleinput" class="form-control" value="8 888 8888 88">
+                                    <input type="text" name="number"   id="simpleinput" class="form-control" value="8 888 8888 88">
                                 </div>
 
                                 <!-- address -->

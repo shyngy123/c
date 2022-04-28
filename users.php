@@ -1,5 +1,5 @@
 <?php session_start();
-require 'registration/function.php'
+ include 'function.php';
 /*include_once "bd.php";
 $id=$_SESSION['id'];
 function user($db){
@@ -26,9 +26,9 @@ function u($id){
 $data=b( $db );
 $dat = u($id);
 user($db);*/
-get_user();
-$data=view_all_user();
-$dat = u($id);
+//$data=view_all_user();
+//$dat = view_id_user($id);
+//get_user();
 
 
 
