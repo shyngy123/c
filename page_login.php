@@ -43,7 +43,7 @@
                 ?>
              </div>
        <?php endif; ?>
-            <form action="login.php" method="post">
+            <form action="function.php" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
                     <input type="email" id="username" name="useremail" class="form-control" placeholder="Эл. адрес" value="">

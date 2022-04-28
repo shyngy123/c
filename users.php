@@ -1,5 +1,6 @@
 <?php session_start();
-include_once "bd.php";
+require 'registration/function.php'
+/*include_once "bd.php";
 $id=$_SESSION['id'];
 function user($db){
   $sql = "SELECT `role` FROM `regis` WHERE `role` = :role";
@@ -24,7 +25,11 @@ function u($id){
 
 $data=b( $db );
 $dat = u($id);
-user($db);
+user($db);*/
+get_user();
+$data=view_all_user();
+$dat = u($id);
+
 
 
 

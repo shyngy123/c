@@ -70,7 +70,7 @@ security($db)
             </h1>
 
         </div>
-        <form action="" method="post">
+        <form action="function" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">

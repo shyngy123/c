@@ -1,10 +1,11 @@
 <?php
 session_start();
-require_once "bd.php";
+
 //login fanction
 $useremail=$_POST['useremail'];
 $userpassword= $_POST['userpassword'];
-function chek_login($useremail,$userpassword,$db){
+function chek_login($useremail,$userpassword){
+  $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
   $sql = "SELECT*FROM `userss` WHERE `email` =?";
   $statement = $db->prepare($sql);
   $statement->execute([$useremail]);
@@ -31,12 +32,13 @@ chek_login($useremail,$userpassword,$db);
 
 
 //registration fanction
-$useremail=$_POST['useremail'];
-$userpassword=$_POST['userpassword'];
-function check_email($useremail,$db){
+$regisemail=$_POST['useremail'];
+$regispassword=$_POST['userpassword'];
+function check_email($regisemail){
+  $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
  $sql = "SELECT `email` FROM `userss` WHERE `email` = :email";
  $statement = $db->prepare($sql);
- $statement->execute(['email' => $useremail]);
+ $statement->execute(['email' => $regisemail]);
  $task = $statement->fetch(PDO::FETCH_ASSOC);
  if(!empty($task)) {
  $_SESSION['danger'] = false;
@@ -45,10 +47,11 @@ function check_email($useremail,$db){
  exit;
 }
 }
-function add_user($useremail,$userpassword,$db){
+function add_user($regisemail,$regispassword){
+  $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
   $sql = 'INSERT INTO userss(email,password,role) VALUES (:email,:password,:role)';
   $statment=$db->prepare($sql);
-  $statment->execute(['email' => $useremail,'password'=>password_hash($userpassword,PASSWORD_DEFAULT),'role'=>'user']);
+  $statment->execute(['email' => $regisemail,'password'=>password_hash($regispassword,PASSWORD_DEFAULT),'role'=>'user']);
 
   $_SESSION['danger'] = true;
   $_SESSION['message']='регистрация успешна!';
@@ -56,9 +59,10 @@ function add_user($useremail,$userpassword,$db){
   header('Location: page_login.php');
 
 }
-check_email($useremail,$db);
-add_user($useremail,$userpassword,$db);
+check_email($regisemai,$db);
+add_user($regisemai,$regispassword,$db);
 //create user fanction
+/*
 function check_email(){
   $sql = "SELECT `email` FROM `userss` WHERE `email` = :email";
   $statement = $db->prepare($sql);
@@ -145,7 +149,7 @@ function security($db){
 }
 security($db)
 //edit
-function edit($db){
+function edit_users($db){
 
 	$edit_name = $_POST['name'];
 	$edit_last_name = $_POST['workplace'];
@@ -160,10 +164,10 @@ function edit($db){
 
 
 }
-edit($db);
+edit_users($db);
 //PAGE PROF
 $id=$_SESSION['id'];
-function u($id){
+function veiw_prof($id){
   $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
     $sq = $db->prepare('SELECT*FROM userss WHERE id=:id ');
     $sq->execute([':id' =>$id]);
@@ -171,18 +175,18 @@ function u($id){
       $dat = $sq->fetch(PDO::FETCH_ASSOC);
     return $dat;
 }
-$dat = u($id);
+$dat = veiw_prof($id);
 //media
 $get_id = $_GET['id'];
 
-function u($db,$get_id){
+function view_media($db,$get_id){
   $sql = $db->prepare('SELECT*FROM userss WHERE id=:id ');
   $sql->execute([':id' => $get_id]);
   $data = $sql->fetch(PDO::FETCH_ASSOC);
         return $data;
     }
-    $data = u($db,$get_id);
-function upload($db){
+    $data = upload_media($db,$get_id);
+function upload_media($db){
      $uploadname=$_FILES['image']['tmp_name'];
      $path='uploads/'.uniqid().'.jpeg';
     move_uploaded_file($uploadname,$path);
@@ -216,9 +220,11 @@ function upload($db){
     $data=b( $db );
     $dat = u($id);
     user($db);
+    */
 //users
 $id=$_SESSION['id'];
-function user($db){
+function get_user(){
+  $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
   $sql = "SELECT `role` FROM `regis` WHERE `role` = :role";
   $statement = $db->prepare($sql);
   $statement->execute(['role' => 'admin']);
@@ -226,11 +232,12 @@ function user($db){
    return $user;
 
 }
-function  b( $db ){
+function view_all_user(){
+  $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
  $data = $db->query("SELECT * FROM `userss`")->fetchall(PDO::FETCH_ASSOC);
    return $data;
 }
-function u($id){
+function view_id_user($id){
       $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
         $sq = $db->prepare('SELECT*FROM userss WHERE id=:id ');
         $sq->execute([':id' =>$id]);
@@ -239,9 +246,9 @@ function u($id){
         return $dat;
     }
 
-$data=b( $db );
+/*$data=view_all_user( $db );
 $dat = u($id);
-user($db);
+get_user($db);
 
 
 

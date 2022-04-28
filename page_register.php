@@ -1,4 +1,5 @@
-<?php session_start();?>
+<?php session_start();
+include 'function.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,7 @@
                              </div>
                              <?php endif; ?>
 
-                                    <form id="js-login" novalidate="" action="register.php" method="post">
+                                    <form id="js-login" novalidate="" action="function.php" method="post">
                                         <div class="form-group">
                                             <label class="form-label" for="emailverify">Email</label>
                                             <input type="email" name="useremail" id="emailverify" class="form-control" placeholder="Эл. адрес" required>
