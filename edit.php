@@ -1,31 +1,15 @@
 <?php
 session_start();
-
-require_once "bd.php";
-
-/*function edit($db){
-
-	$edit_name = $_POST['name'];
-	$edit_last_name = $_POST['workplace'];
-	$edit_pos = $_POST['address'];
-	$edit_num = $_POST['num'];
-	$get_id = $_GET['id'];
-
-		$sqll = "UPDATE userss SET name=?, workplace=?, address=?, number=? WHERE id=?";
-		$querys = $db->prepare($sqll);
-		$querys->execute([$edit_name, $edit_last_name, $edit_pos, $edit_num,$get_id]);
-
-
-
-}
-edit($db);
-
-*/
-
+include 'register.php';
+$id = $_GET['id'];
+$edit_name = $_POST['name'];
+$edit_last_name = $_POST['workplace'];
+$edit_pos = $_POST['address'];
+$edit_num = $_POST['number'];
+edit_users($edit_name ,$edit_last_name,$edit_pos,$edit_num,$id )
 
  ?>
 <!DOCTYPE html>
-<?php echo $edit_num ; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +37,7 @@ edit($db);
                     <a class="nav-link" href="page_login.php">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_login.php">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -65,7 +49,7 @@ edit($db);
             </h1>
 
         </div>
-        <form action="function.php" method="post">
+        <form action="" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">

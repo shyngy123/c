@@ -1,43 +1,39 @@
-<?php session_start();
- include 'function.php';
-/*include_once "bd.php";
-$id=$_SESSION['id'];
-function user($db){
-  $sql = "SELECT `role` FROM `regis` WHERE `role` = :role";
-  $statement = $db->prepare($sql);
-  $statement->execute(['role' => 'admin']);
-  $user = $statement->fetch(PDO::FETCH_ASSOC);
-   return $user;
+<?php
+  session_start();
+  $id=$_SESSION['id'];
+ //include 'register.php';
+ $data=view_all_user();
+ $dat = view_id_user($id);
+ $user=get_user();
+ function get_user(){
+   $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
+   $sql = "SELECT `role` FROM `regis` WHERE `role` = :role";
+   $statement = $db->prepare($sql);
+   $statement->execute(['role' => 'admin']);
+   $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
 
-}
-function  b( $db ){
- $data = $db->query("SELECT * FROM `userss`")->fetchall(PDO::FETCH_ASSOC);
-   return $data;
-}
-function u($id){
-      $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
-        $sq = $db->prepare('SELECT*FROM userss WHERE id=:id ');
-        $sq->execute([':id' =>$id]);
+ }
+ function view_all_user(){
+   $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
+    $data = $db->query("SELECT * FROM `userss`")->fetchall(PDO::FETCH_ASSOC);
+    return $data;
+ }
+ function view_id_user($id){
+       $db = new PDO('mysql:host=localhost;dbname=regis', 'root', '');
+         $sq = $db->prepare('SELECT*FROM userss WHERE id=:id ');
+         $sq->execute([':id' =>$id]);
 
-          $dat = $sq->fetch(PDO::FETCH_ASSOC);
-        return $dat;
-    }
-
-$data=b( $db );
-$dat = u($id);
-user($db);*/
-//$data=view_all_user();
-//$dat = view_id_user($id);
-//get_user();
-
-
-
-
+           $dat = $sq->fetch(PDO::FETCH_ASSOC);
+         return $dat;
+     }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php var_dump($data);
+       echo $_SESSION['id'] ?>
     <meta charset="UTF-8">
     <title>Document</title>
     <meta name="description" content="Chartist.html">
@@ -82,7 +78,7 @@ user($db);*/
             </div>
             <div class="row">
                 <div class="col-xl-12">
-                  <?php if ( $_SESSION['status'] === 'admin' ): ?>
+                  <?php if ( $user['role'] === 'admin' ): ?>
                     <a class="btn btn-success" href="create_user.php">Добавить</a>
                   <?php endif; ?>
 
@@ -102,7 +98,7 @@ user($db);*/
                 </div>
             </div>
 
-<?php if ($_SESSION['status'] === 'admin'): ?>
+<?php if ($user['role'] === 'admin'): ?>
      <?php foreach ($data as  $value): ?>
             <div  id="js-contacts" >
                 <div class="col-xl-4">
@@ -132,7 +128,7 @@ user($db);*/
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
-                                        <a href="allfunction.php?id=<?php echo $value['id'] ?>" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                        <a href="function.php?id=<?php echo $value['id'] ?>" class="dropdown-item" onclick="return confirm('are you sure?');">
                                             <i class="fa fa-window-close"></i>
                                             Удалить
                                         </a>
